@@ -36,16 +36,27 @@ static void buttonclick(int *x, int *y, int *width, int *height){
 	*y = init_y;
 	*width = fin_x - init_x;
 	*height = fin_y - init_y;
-
+        
+        if(*width <0 && *height < 0){
+                *x = fin_x;
+                *y = fin_y;
+                *width = init_x - fin_x;
+                *height = init_y - fin_y;
+                printf("inverted, both y and x were decrementing\n");
+        }else if(*width < 0){
+                *x = fin_x;
+                *width = init_x - fin_x;
+                printf("inverted only x was decrementing\n");
+        }else if(*height < 0){
+                *y = fin_y;
+                *height = init_y - fin_y;
+                printf("inverted only y was decrementing\n");
+        }
+        else{
+                printf("uninverted\n");
+	}
+	
 	printf("height, %d and width, %d\n",*height,*width);
-	if(*width <0 || *height < 0){	
-		*x = fin_x;
-		*y = fin_y;
-		*width = init_x - fin_x;
-		*height = init_x -fin_x;
-		printf("inverted\n");
-	}else{
-		printf("uninverted\n");}
 }
 
 static void take_pic(){
